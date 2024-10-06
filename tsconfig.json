@@ -1,0 +1,22 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json", "composite": true },
+    { "path": "./tsconfig.node.json", "composite": true }
+  ],
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "baseUrl": ".",  
+    "paths": {
+      "@models/*": ["src/models/*"],
+      "@db/*": ["src/server/db/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}
