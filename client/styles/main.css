@@ -1,0 +1,396 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Grid Layout */
+.grid-layout {
+  @apply m-1 mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4;
+}
+
+/* Image Card Styles */
+.image-card {
+  @apply flex h-full transform flex-col overflow-hidden rounded-lg bg-white shadow-lg transition-transform hover:scale-105 hover:shadow-xl;
+}
+
+.image {
+  @apply max-h-96
+   w-auto flex-shrink-0 object-fill;
+}
+
+.card-content {
+  @apply flex flex-grow flex-col;
+}
+
+.card-title {
+  @apply mb-2 text-left text-xl font-semibold;
+}
+
+.card-location {
+  @apply mt-2 text-left text-gray-700;
+}
+
+.card-tags {
+  @apply mt-1 flex flex-wrap gap-2;
+}
+
+.name {
+  @apply py-2 text-center text-lg font-bold;
+}
+
+/* HEADING AND FONT*/
+
+.heading-1-caveat {
+  @apply caveat-bold text-5xl font-bold text-textBlue;
+}
+
+.heading-2-caveat {
+  @apply caveat-semi text-3xl text-textBlue;
+}
+
+.heading-3-italic {
+  @apply raleway-bold-italic text-2xl font-bold text-textBlue;
+}
+
+.heading-4 {
+  @apply raleway-bold  text-xl font-bold text-textBlue;
+}
+
+.heading-4-italic {
+  @apply raleway-bold-italic  text-xl font-bold text-textBlue;
+}
+
+.paragraph {
+  @apply raleway-light text-base font-normal text-textBlue;
+}
+
+.small-text {
+  @apply text-sm font-normal;
+}
+
+/* --- // LAYOUT // ---- */
+
+/* This will help get you left/right margins to center your content */
+.container {
+  @apply mx-auto rounded px-4 shadow-sm;
+}
+
+.custom_flex {
+  @apply flex items-center justify-center;
+}
+
+@media screen and (max-width: 850px) {
+  .row.primary {
+    grid-template-columns: 1fr;
+  }
+}
+
+.currentlyAccepting {
+  @apply min-h-fit max-w-lg;
+}
+/* BOX SHADOWS */
+.yellow-shadow {
+  box-shadow:
+    0 4px 8px 0 rgb(237, 226, 89, 0.1),
+    0 6px 20px 0 rgb(237, 226, 89, 0.1);
+}
+
+.teal-shadow {
+  box-shadow:
+    0 4px 8px 0 rgba(30, 117, 109, 0.2),
+    0 6px 20px 0 rgb(30, 117, 109, 0.2);
+}
+
+/* --- // BUTTONS // ---- */
+
+/* Primary Button */
+
+@layer components {
+  .primary_button {
+    @apply raleway-light rounded-full px-4 py-2 text-white;
+  }
+
+  /* Secondary Button */
+  .secondary_button {
+    @apply raleway-light rounded-full px-4 py-2;
+  }
+}
+
+/* --- YOUR MANUAL CSS GOES HERE ---- */
+
+/* FONTS */
+
+.caveat-bold {
+  font-family: 'Caveat', cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.caveat-semi {
+  font-family: 'Caveat';
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.raleway-light {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.raleway-bold {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 450;
+  font-style: normal;
+}
+
+.raleway-bold-italic {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 450;
+  font-style: italic;
+}
+
+/* Default Browser styling override */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ORG PROFILE PAGE */
+.orgProfilePage {
+  background-color: #ffffff;
+}
+.logo {
+  height: 135px;
+}
+
+.profile-image-card {
+  @apply flex h-full transform flex-col items-center justify-center overflow-hidden rounded-lg;
+}
+
+/*Hover urgently Status*/
+
+.name-container {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+}
+
+.card-urgently-status {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.circle-container {
+  display: flex;
+  justify-content: flex-end; /* Align to the left */
+  padding: 5px;
+}
+
+.circle {
+  width: 100%;
+  height: 25px;
+  background-color: #f46161; /* Offred color */
+  border-radius: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.circle:hover {
+  background-color: #fab4b4;
+  border: 2px solid rgb(237, 68, 68);
+  border-radius: 10px;
+  height: 40px; /* Adjust as needed */
+}
+
+.circle::after {
+  content: 'Urgently Seeking';
+  color: #000000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+.circle:hover::after {
+  opacity: 1;
+}
+
+/* Custom Button Class */
+.custom-button {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.375rem;
+  background-color: #dc2626;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-button:hover {
+  background-color: #ef4444;
+}
+
+.custom-svg {
+  background-color: rgb(254 226 226);
+}
+
+/* Custom Grid Class */
+.custom-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: fit-content;
+}
+
+.custom-user-grid {
+  @apply mb-8 grid grid-cols-1 gap-6 md:grid-cols-2;
+}
+
+/* Container for centering content */
+.login-redirect-container {
+  @apply flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4;
+}
+
+/* Card container */
+.card-container {
+  @apply grid w-full max-w-4xl gap-6 md:grid-cols-2;
+}
+
+/* Card styling */
+.card {
+  @apply m-auto mt-2 flex h-72 flex-col items-center justify-center rounded-lg bg-white p-6 shadow-lg;
+}
+
+/* Card text styling */
+.card-text {
+  @apply mb-6 text-center text-gray-600;
+}
+
+.custom-join-button {
+  display: inline-flex;
+  width: 15rem;
+  justify-content: center;
+  border-radius: 2rem;
+  background-color: #163fa0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-join-button:hover {
+  background-color: #3a67d1;
+}
+
+.custom-signup-button {
+  display: inline-flex;
+  width: 15rem;
+  justify-content: center;
+  border-radius: 2rem;
+  background-color: #139128;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-signup-button:hover {
+  background-color: #23b83b;
+}
+
+/*Volunteers Needed*/
+.volunteersNeeded {
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+
+.signalNeeded {
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive styling for small screens */
+
+@media (min-width: 640px) {
+  /* sm breakpoint */
+  .custom-grid {
+    width: fit-content;
+  }
+  .custom-button {
+    margin-left: 0.75rem;
+    width: auto;
+  }
+  .image-card {
+    @apply text-center; /* Center content on smaller screens */
+  }
+}
+
+@media (min-width: 768px) {
+  /* md breakpoint */
+  .custom-grid {
+    width: fit-content;
+  }
+}
+
+@media (min-width: 770px) {
+  /* lg breakpoint */
+  .custom-grid {
+    width: 50em;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg breakpoint */
+  .custom-grid {
+    width: 50em;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* xl breakpoint */
+  .custom-grid {
+    width: 50em;
+  }
+}

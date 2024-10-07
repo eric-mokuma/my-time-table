@@ -1,22 +1,17 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json", "composite": true },
-    { "path": "./tsconfig.node.json", "composite": true }
-  ],
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
+    "types": ["vite/client"],
+    "target": "es2020", 
+    "jsx": "react-jsx",
+    "module": "ES2020",
+    "moduleResolution": "Bundler", 
+    "noEmit": true,
+    "isolatedModules": true, 
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "baseUrl": ".",  
-    "paths": {
-      "@models/*": ["src/models/*"],
-      "@db/*": ["src/server/db/*"]
-    }
-  },
-  "include": ["src/**/*"]
+    "strict": true,
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "skipLibCheck": true
+  }
 }
