@@ -3,33 +3,34 @@
  * @returns { Promise<void> }
  */
 export async function seed(knex) {
-  // Deletes ALL existing entries
-  await knex('tasks').del()
-
-  await knex('tasks').insert([
-    {
-      TaskId: 1,
-      TaskName: 'Task 1',
-      Description: 'Description for task 1',
-      Duration: '2 hours',
-      IsPriority: true,
-      IsCompleted: false,
-    },
-    {
-      TaskId: 2,
-      TaskName: 'Task 2',
-      Description: 'Description for task 2',
-      Duration: '1 hour',
-      IsPriority: false,
-      IsCompleted: false,
-    },
-    {
-      TaskId: 3,
-      TaskName: 'Task 3',
-      Description: 'Description for task 3',
-      Duration: '30 minutes',
-      IsPriority: false,
-      IsCompleted: true,
-    },
-  ])
+  return knex('tasks')
+    .del()
+    .then(function () {
+      return knex('tasks').insert([
+        {
+          task_name: 'Task 1',
+          description: 'Description for task 1',
+          duration: '2 hours',
+          id: 1,
+          is_completed: false,
+          is_priority: true,
+        },
+        {
+          task_name: 'Task 2',
+          description: 'Description for task 2',
+          duration: '1 hour',
+          id: 2,
+          is_completed: false,
+          is_priority: false,
+        },
+        {
+          task_name: 'Task 3',
+          description: 'Description for task 3',
+          duration: '30 minutes',
+          id: 3,
+          is_completed: true,
+          is_priority: false,
+        },
+      ])
+    })
 }

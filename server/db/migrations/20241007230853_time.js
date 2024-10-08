@@ -5,12 +5,12 @@
 export function up(knex) {
   return knex.schema.createTable('time_slots', (table) => {
     table.increments('id').primary()
-    table.string('start_time').notNullable()
-    table.string('end_time').notNullable()
-    table.string('date').notNullable()
+    table.date('date').notNullable()
+    table.time('start_time').notNullable()
+    table.time('end_time').notNullable()
   })
 }
 
 export function down(knex) {
-  return knex.schema.dropTableIfExists('time_slots')
+  return knex.schema.dropTable('time_slots')
 }

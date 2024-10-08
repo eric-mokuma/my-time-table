@@ -4,12 +4,14 @@
  */
 export async function seed(knex) {
   // Deletes ALL existing entries
-  await knex('time_slots').del()
-
-  // Inserts seed entries
-  await knex('time_slots').insert([
-    { TimeSlotID: 1, StartTime: '09:00', EndTime: '10:00', Date: '2024-10-01' },
-    { TimeSlotID: 2, StartTime: '10:00', EndTime: '11:00', Date: '2024-10-02' },
-    { TimeSlotID: 3, StartTime: '11:00', EndTime: '12:00', Date: '2024-10-03' },
-  ])
+  return knex('time_slots')
+    .del()
+    .then(function () {
+      // Inserts seed entries
+      return knex('time_slots').insert([
+        { date: '2024-10-01', start_time: '09:00', end_time: '10:00' },
+        { date: '2024-10-02', start_time: '10:00', end_time: '11:00' },
+        { date: '2024-10-03', start_time: '11:00', end_time: '12:00' },
+      ])
+    })
 }

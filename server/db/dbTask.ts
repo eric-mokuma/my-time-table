@@ -49,6 +49,6 @@ export async function addTask(newTask: Task): Promise<number> {
 
 // Function to delete a task by ID
 export async function deleteTaskById(id: number) {
-  const result = await db('tasks').where({ TaskId: id }).delete()
+  const result = await db('tasks').where({ id }).delete()
   return result
 }
