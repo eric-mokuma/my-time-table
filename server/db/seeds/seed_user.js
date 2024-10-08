@@ -8,8 +8,8 @@ export async function seed(knex) {
 
   // Inserts seed entries
   await knex('users').insert([
-    { UserID: 1, UserName: 'user1', Email: 'user1@example.com' },
-    { UserID: 2, UserName: 'user2', Email: 'user2@example.com' },
-    { UserID: 3, UserName: 'user3', Email: 'user3@example.com' },
+    { id: 1, username: 'user1', email: 'user1@example.com' },
+    { id: 2, username: 'user1', email: 'user1@example.com' },
+    { id: 3, username: 'user1', email: 'user1@example.com' },
   ])
 }

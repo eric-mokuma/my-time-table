@@ -4,7 +4,7 @@ import { User } from '../../models/modelUsers'
 
 // here is a simple function to get all users from the database
 export async function getUsers(): Promise<User[]> {
-  return db('users').select('id', 'username', 'email', 'createdAt')
+  return db('users').select()
 }
 // here is a simple function to update a user by id
 export async function updateUserById(updatedUser: Partial<User>, id: number) {
@@ -15,7 +15,7 @@ export async function updateUserById(updatedUser: Partial<User>, id: number) {
 export async function getUserById(id: number) {
   const result = await db('users')
     .where({ id })
-    .select('id', 'username', 'email', 'createdAt')
+    .select('id', 'username', 'email', 'created_at')
     .first()
   return result
 }
@@ -24,7 +24,7 @@ export async function addUser(newUser: User) {
   const result = await db('users').insert({
     username: newUser.username,
     email: newUser.email,
-    createdAt: newUser.createdAt,
+    createdAt: newUser.created_at,
   })
   return result[0]
 }

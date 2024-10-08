@@ -4,12 +4,12 @@
  */
 export function up(knex) {
   return knex.schema.createTable('tasks', (table) => {
-    table.increments('TaskId').primary()
-    table.string('TaskName').notNullable()
-    table.string('Description')
-    table.string('Duration')
-    table.boolean('IsPriority').defaultTo(false)
-    table.boolean('IsCompleted').defaultTo(false)
+    table.increments('id').primary()
+    table.string('task_name').notNullable()
+    table.string('description')
+    table.string('duration')
+    table.boolean('is_priority').defaultTo(false)
+    table.boolean('is_completed').defaultTo(false)
   })
 }
 

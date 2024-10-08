@@ -1,7 +1,6 @@
 export interface Assignment {
-  id: number;         
-  title: string;     
-  description: string; 
-  dueDate: Date;   
-  userId: number;   
+  id: number
+  title: string
+  description: string
+  due_date: string
 }

@@ -1,8 +1,8 @@
 export interface Task {
-  TaskId: number;      
-  TaskName: string;    
-  Description: string; 
-  Duration: string;    
-  IsPriority: boolean; 
-  IsCompleted: boolean; 
+  id: number
+  task_name: string
+  description: string
+  duration: string
+  is_priority: boolean
+  is_completed: boolean
 }

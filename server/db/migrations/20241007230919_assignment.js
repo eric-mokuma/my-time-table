@@ -4,23 +4,23 @@
  */
 export function up(knex) {
   return knex.schema.createTable('assignments', (table) => {
-    table.increments('AssignmentID').primary()
+    table.increments('id').primary()
     table
-      .integer('UserID')
+      .integer('id')
       .unsigned()
-      .references('UserID')
+      .references('id')
       .inTable('users')
       .onDelete('CASCADE')
     table
-      .integer('TaskID')
+      .integer('id')
       .unsigned()
-      .references('TaskId')
+      .references('id')
       .inTable('tasks')
       .onDelete('CASCADE')
     table
-      .integer('TimeSlotID')
+      .integer('id')
       .unsigned()
-      .references('TimeSlotID')
+      .references('id')
       .inTable('time_slots')
       .onDelete('CASCADE')
   })

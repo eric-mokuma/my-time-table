@@ -4,9 +4,10 @@
  */
 export function up(knex) {
   return knex.schema.createTable('users', (table) => {
-    table.increments('UserID').primary()
-    table.string('UserName').notNullable()
-    table.string('Email').notNullable().unique()
+    table.increments('id').primary()
+    table.string('username').notNullable()
+    table.string('email').notNullable().unique()
+    table.string('created_at').defaultTo(knex.fn.now)
   })
 }
 
