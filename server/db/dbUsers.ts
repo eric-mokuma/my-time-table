@@ -20,14 +20,15 @@ export async function getUserById(id: number) {
   return result
 }
 // here is a simple function to add a new user to the database
-export async function addUser(newUser: User) {
+export async function addUser(newUser: User): Promise<number> {
   const result = await db('users').insert({
     username: newUser.username,
     email: newUser.email,
-    createdAt: newUser.created_at,
+    created_at: newUser.createdAt,
   })
-  return result[0]
+  return result[0] // Assuming the id is auto-generated
 }
+
 // here is a simple function to delete a user by id
 export async function deleteUserById(id: number) {
   const result = await db('users').where({ id }).delete()

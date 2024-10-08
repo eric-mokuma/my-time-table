@@ -8,8 +8,8 @@ export async function seed(knex) {
 
   // Inserts seed entries
   await knex('time_slots').insert([
-    { TimeSlotID: 1, StartTime: '09:00', EndTime: '10:00', Date: '2024-10-01' },
-    { TimeSlotID: 2, StartTime: '10:00', EndTime: '11:00', Date: '2024-10-02' },
-    { TimeSlotID: 3, StartTime: '11:00', EndTime: '12:00', Date: '2024-10-03' },
+    { id: 1, start_time: '09:00', end_time: '10:00', date: '2024-10-01' },
+    { id: 2, start_time: '10:00', end_time: '11:00', date: '2024-10-02' },
+    { id: 3, start_time: '11:00', end_time: '12:00', date: '2024-10-03' },
   ])
 }
