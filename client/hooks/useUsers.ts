@@ -1,8 +1,8 @@
 import { MutationFunction, useQuery } from '@tanstack/react-query'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import * as API from '../apis/apiUsers'
-import { useAuth0, User } from '@auth0/auth0-react'
-
+import { useAuth0 } from '@auth0/auth0-react'
+import { User } from '../../models/modelUsers'
 export function useUsers() {
   const { user, getAccessTokenSilently } = useAuth0()
 
