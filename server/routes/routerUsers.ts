@@ -24,7 +24,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     res.json(user)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: 'Failed to fetch users' })
+    res.status(500).json({ error: 'Failed to fetch user' })
   }
 })
 
@@ -68,7 +68,7 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { username, email } = req.body
-    const newUser: User = { id: 0, username, email }
+    const newUser: User = { id: 0, username, email, created_at: new Date() }
     const id = await db.addUser(newUser)
     res.status(201).json({ id })
   } catch (error) {
