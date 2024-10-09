@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       clientId="ckLCjVJeTFwtPgDHWTK3C0hyrPKhZoIl"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: 'https://donatemate/api',
+        audience: 'https://mytimetable/api',
       }}
     >
       <QueryClientProvider client={queryClient}>
