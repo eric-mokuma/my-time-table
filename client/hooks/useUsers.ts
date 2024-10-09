@@ -1,21 +1,25 @@
 import { MutationFunction, useQuery } from '@tanstack/react-query'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
 import * as API from '../apis/apiUsers'
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0, User } from '@auth0/auth0-react'
 
 export function useUsers() {
   const { user, getAccessTokenSilently } = useAuth0()
 
   const query = useQuery({
-    queryKey: ['user'],
+    queryKey: ['users'],
     queryFn: async () => {
       const token = await getAccessTokenSilently().catch(() => {
         console.error('Login Required')
-        return 'undefined'
+        return ''
       })
-      if (token === 'undefined') return []
-      return API.getUsers({ token })
+      if (!token) return []
+      try {
+        return await API.getUsers(token)
+      } catch (error) {
+        console.error('Error fetching users:', error)
+        return []
+      }
     },
     enabled: !!user,
   })
@@ -23,29 +27,8 @@ export function useUsers() {
   return {
     ...query,
     add: useAddUser(),
-    accept: useAcceptRequest(),
-    deny: useDenyRequest(),
-  }
-}
-
-export function useAllUsersById(orgId: number) {
-  const { user, getAccessTokenSilently } = useAuth0()
-
-  const query = useQuery({
-    queryKey: ['users', orgId],
-    queryFn: async () => {
-      const token = await getAccessTokenSilently().catch(() => {
-        console.error('Login Required')
-        return 'undefined'
-      })
-      if (token === 'undefined') return []
-      return API.getAllUsersById({ id: orgId, token })
-    },
-    enabled: !!user,
-  })
-
-  return {
-    ...query,
+    update: useUpdateUser(),
+    delete: useDeleteUser(),
   }
 }
 
@@ -57,7 +40,10 @@ export function useUserMutation<TData = unknown, TVariables = unknown>(
   const mutation = useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] })
+      queryClient.invalidateQueries({ queryKey: ['users'] })
+    },
+    onError: (error) => {
+      console.error('Mutation failed:', error)
     },
   })
 
@@ -65,13 +51,25 @@ export function useUserMutation<TData = unknown, TVariables = unknown>(
 }
 
 export function useAddUser() {
-  return useUserMutation(API.addUser)
+  const { getAccessTokenSilently } = useAuth0()
+  return useUserMutation(async (newUser: User) => {
+    const token = await getAccessTokenSilently()
+    return API.addUser(newUser, token)
+  })
 }
 
-export function useAcceptRequest() {
-  return useUserMutation(API.acceptingUserRequest)
+export function useUpdateUser() {
+  const { getAccessTokenSilently } = useAuth0()
+  return useUserMutation(async (updatedUser: User) => {
+    const token = await getAccessTokenSilently()
+    return API.updateUser(updatedUser, token)
+  })
 }
 
-export function useDenyRequest() {
-  return useUserMutation(API.denyingUserRequest)
+export function useDeleteUser() {
+  const { getAccessTokenSilently } = useAuth0()
+  return useUserMutation(async (id: number) => {
+    const token = await getAccessTokenSilently()
+    return API.deleteUser(id, token)
+  })
 }

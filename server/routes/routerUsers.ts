@@ -23,7 +23,7 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
     const id = Number(req.params.id)
 
     if (isNaN(id)) {
-      return res.sendStatus(400)
+      return res.status(400).json({ error: 'Invalid user ID' })
     }
 
     const updatedUser: User = { id, username, email, created_at: new Date() }
@@ -31,7 +31,7 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
     res.sendStatus(204)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: 'Something went wrong.' })
+    res.status(500).json({ error: 'Failed to update user' })
   }
 })
 
@@ -41,14 +41,14 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
     const id = Number(req.params.id)
 
     if (isNaN(id)) {
-      return res.sendStatus(400)
+      return res.status(400).json({ error: 'Invalid user ID' })
     }
 
     await db.deleteUserById(id)
     res.sendStatus(204)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: 'Something went wrong.' })
+    res.status(500).json({ error: 'Failed to delete user' })
   }
 })
 
@@ -61,7 +61,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
     res.status(201).json({ id })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: 'Something went wrong.' })
+    res.status(500).json({ error: 'Failed to add user' })
   }
 })
 

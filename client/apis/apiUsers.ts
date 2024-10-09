@@ -1,82 +1,50 @@
 import request from 'superagent'
-import { logError } from './utils.ts'
-import { User, UserData } from '../../models/modelUsers'
+import { logError } from './utils'
+import { User } from '../../models/modelUsers'
 
 const rootUrl = '/api/v1'
 
-interface GetUsersFunction {
-  id?: number
-  token: string
-}
-
-export async function getUsers({ token }: GetUsersFunction): Promise<User> {
-  return await request
+export async function getUsers(token: string): Promise<User[]> {
+  return request
     .get(`${rootUrl}/users`)
     .set('Authorization', `Bearer ${token}`)
-    .then((res) => (res.body ? res.body : []))
+    .then((res) => res.body)
     .catch(logError)
 }
 
-export async function getAllUsersById({
-  id,
-  token,
-}: GetUsersFunction): Promise<UserData[]> {
-  return await request
+export async function getUserById(id: number, token: string): Promise<User> {
+  return request
     .get(`${rootUrl}/users/${id}`)
     .set('Authorization', `Bearer ${token}`)
-    .then((res) => (res.body ? res.body : []))
+    .then((res) => res.body)
     .catch(logError)
 }
 
-interface AddUserFunction {
-  newUser: UserData
-  token: string
-}
-
-export async function addUser({
-  newUser,
-  token,
-}: AddUserFunction): Promise<UserData> {
+export async function addUser(newUser: User, token: string): Promise<User> {
   return request
     .post(`${rootUrl}/users`)
     .set('Authorization', `Bearer ${token}`)
     .send(newUser)
-    .then((res) => res.body.users)
+    .then((res) => res.body)
     .catch(logError)
 }
 
-interface AddRequestFunction {
-  admin: UserData
-  newUser: User
-  token: string
-}
-
-export async function acceptingUserRequest({
-  admin,
-  newUser,
-  token,
-}: AddRequestFunction): Promise<UserData> {
-  const userPackage = { admin, newUser }
-
+export async function updateUser(
+  updatedUser: User,
+  token: string,
+): Promise<void> {
   return request
-    .post(`${rootUrl}/users`)
+    .patch(`${rootUrl}/users/${updatedUser.id}`)
     .set('Authorization', `Bearer ${token}`)
-    .send(userPackage)
-    .then((res) => res.body.users)
+    .send(updatedUser)
+    .then(() => {})
     .catch(logError)
 }
 
-export async function denyingUserRequest({
-  admin,
-  newUser,
-  token,
-}: AddRequestFunction): Promise<UserData> {
-  const userPackage = { admin, newUser }
-
+export async function deleteUser(id: number, token: string): Promise<void> {
   return request
-    .delete(`${rootUrl}/users`)
+    .delete(`${rootUrl}/users/${id}`)
     .set('Authorization', `Bearer ${token}`)
-    .send(userPackage)
-    .then((res) => res.body.users)
+    .then(() => {})
     .catch(logError)
 }
