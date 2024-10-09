@@ -16,6 +16,18 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
+// GET /api/v1/users get an user by id
+router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+  try {
+    const id = Number(req.params.id)
+    const user = await db.getUserById(id)
+    res.json(user)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'Failed to fetch users' })
+  }
+})
+
 // PATCH /api/v1/users/:id for updating a user by id
 router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
   try {
@@ -56,7 +68,7 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { username, email } = req.body
-    const newUser: User = { id: 0, username, email, created_at: new Date() }
+    const newUser: User = { id: 0, username, email }
     const id = await db.addUser(newUser)
     res.status(201).json({ id })
   } catch (error) {

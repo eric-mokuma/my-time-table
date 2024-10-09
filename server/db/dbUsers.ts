@@ -24,7 +24,7 @@ export async function addUser(newUser: User) {
   const result = await db('users').insert({
     username: newUser.username,
     email: newUser.email,
-    createdAt: newUser.created_at,
+    // created_at: newUser.created_at,
   })
   return result[0]
 }
