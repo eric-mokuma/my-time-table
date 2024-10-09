@@ -1,11 +1,12 @@
 import express from 'express'
 import * as db from '../db/dbUsers'
 import { User } from '../../models/modelUsers'
+import checkJwt, { JwtRequest } from '../auth0'
 
 const router = express.Router()
 
 // GET /api/v1/users for getting all users
-router.get('/', async (req, res) => {
+router.get('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const users = await db.getUsers()
     res.json(users)
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
 })
 
 // PATCH /api/v1/users/:id for updating a user by id
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { username, email } = req.body
     const id = Number(req.params.id)
@@ -25,7 +26,7 @@ router.patch('/:id', async (req, res) => {
       return res.sendStatus(400)
     }
 
-    const updatedUser: User = { id, username, email, createdAt: new Date() }
+    const updatedUser: User = { id, username, email, created_at: new Date() }
     await db.updateUserById(updatedUser, id)
     res.sendStatus(204)
   } catch (error) {
@@ -35,7 +36,7 @@ router.patch('/:id', async (req, res) => {
 })
 
 // DELETE /api/v1/users/:id for deleting a user by id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   try {
     const id = Number(req.params.id)
 
@@ -52,11 +53,10 @@ router.delete('/:id', async (req, res) => {
 })
 
 // POST /api/v1/users to add a new user
-router.post('/', async (req, res) => {
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { username, email } = req.body
-    const createdAt = new Date()
-    const newUser: User = { id: 0, username, email, createdAt }
+    const newUser: User = { id: 0, username, email, created_at: new Date() }
     const id = await db.addUser(newUser)
     res.status(201).json({ id })
   } catch (error) {

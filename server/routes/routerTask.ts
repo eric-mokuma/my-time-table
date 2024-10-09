@@ -1,11 +1,12 @@
 import express from 'express'
 import * as db from '../db/dbTask'
 import { Task } from '../../models/modelTask'
+import checkJwt, { JwtRequest } from '../auth0'
 
 const router = express.Router()
 
 // GET /api/v1/tasks for getting all tasks
-router.get('/', async (reqt, res) => {
+router.get('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const tasks = await db.getTasks()
     res.json(tasks)
@@ -16,7 +17,7 @@ router.get('/', async (reqt, res) => {
 })
 
 // PATCH /api/v1/tasks/:id for updating a task by id
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { TaskName, Description, Duration, IsPriority, IsCompleted } =
       req.body
@@ -27,12 +28,12 @@ router.patch('/:id', async (req, res) => {
     }
 
     const updatedTask: Task = {
-      TaskId: id,
-      TaskName,
-      Description,
-      Duration,
-      IsPriority,
-      IsCompleted,
+      id,
+      task_name: TaskName,
+      description: Description,
+      duration: Duration,
+      is_priority: IsPriority,
+      is_completed: IsCompleted,
     }
     await db.updateTaskById(updatedTask, id)
     res.sendStatus(204)
@@ -43,7 +44,7 @@ router.patch('/:id', async (req, res) => {
 })
 
 // DELETE /api/v1/tasks/:id for deleting a task by id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   try {
     const id = Number(req.params.id)
 
@@ -60,17 +61,17 @@ router.delete('/:id', async (req, res) => {
 })
 
 // POST /api/v1/tasks to add a new task
-router.post('/', async (req, res) => {
+router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { TaskName, Description, Duration, IsPriority, IsCompleted } =
       req.body
     const newTask: Task = {
-      TaskId: 0,
-      TaskName,
-      Description,
-      Duration,
-      IsPriority,
-      IsCompleted,
+      id: 0,
+      task_name: TaskName,
+      description: Description,
+      duration: Duration,
+      is_priority: IsPriority,
+      is_completed: IsCompleted,
     }
     const id = await db.addTask(newTask)
     res.status(201).json({ TaskId: id })
