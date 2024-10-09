@@ -2,16 +2,16 @@ import db from '../db/connection'
 
 import { User } from '../../models/modelUsers'
 
-// here is a simple function to get all users from the database
+// get all users from the database
 export async function getUsers(): Promise<User[]> {
   return db('users').select()
 }
-// here is a simple function to update a user by id
+// update a user by id
 export async function updateUserById(updatedUser: Partial<User>, id: number) {
   const result = await db('users').where({ id }).update(updatedUser)
   return result
 }
-// here is a simple function to get a user by id
+// get a user by id
 export async function getUserById(id: number) {
   const result = await db('users')
     .where({ id })
@@ -19,17 +19,17 @@ export async function getUserById(id: number) {
     .first()
   return result
 }
-// here is a simple function to add a new user to the database
+// add a new user to the database
 export async function addUser(newUser: User): Promise<number> {
   const result = await db('users').insert({
     username: newUser.username,
     email: newUser.email,
     created_at: newUser.createdAt,
   })
-  return result[0] // Assuming the id is auto-generated
+  return result[0]
 }
 
-// here is a simple function to delete a user by id
+// delete a user by id
 export async function deleteUserById(id: number) {
   const result = await db('users').where({ id }).delete()
   return result
