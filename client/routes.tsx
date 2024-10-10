@@ -1,19 +1,43 @@
-import { createRoutesFromElements, Route } from 'react-router-dom'
+import { createRoutesFromElements, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout.tsx'
-import OrgProfilePage from './pages/OrgProfilePage.tsx'
-import LandingPage from './pages/LandingPage.tsx'
-import AddProfilePage from './pages/AddProfilePage.tsx'
-import LoginRedirect from './pages/LoginRedirect.tsx'
-import EditProfilePage from './pages/EditProfilePage.tsx'
-import UserProfilePage from './pages/UserProfilePage.tsx'
+import MainPage from './pages/MainPage.tsx'
+import UserDashboard from './pages/UserDashboard.tsx'
+import LoginPage from './pages/LoginPage.tsx'
+import AboutPage from './pages/AboutPage.tsx'
+import ContactPage from './pages/ContactPage.tsx'
+import SettingsPage from './pages/SettingsPage.tsx'
+import { AuthProvider, useAuth } from './components/AuthenAndAuthori.tsx'
 
-export default createRoutesFromElements(
-  <Route path="/" element={<Layout />}>
-    <Route index element={<LandingPage />} />
-    <Route path="/register" element={<LoginRedirect />} />
-    <Route path="/org/:id" element={<OrgProfilePage />} />
-    <Route path="/org/signup" element={<AddProfilePage />} />
-    <Route path="/org/edit/:id" element={<EditProfilePage />} />
-    <Route path="/user/profile" element={<UserProfilePage />} />
-  </Route>,
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated } = useAuth()
+  return isAuthenticated ? children : <Navigate to="/login" replace />
+}
+
+export default (
+  <AuthProvider>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<MainPage />} />
+      <Route path="login" element={<LoginPage />} />
+      <Route path="about" element={<AboutPage />} />
+      <Route path="contact" element={<ContactPage />} />
+
+      {/* Protected routes */}
+      <Route
+        path="user/profile"
+        element={
+          <PrivateRoute>
+            <UserDashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="settings"
+        element={
+          <PrivateRoute>
+            <SettingsPage />
+          </PrivateRoute>
+        }
+      />
+    </Route>
+  </AuthProvider>
 )

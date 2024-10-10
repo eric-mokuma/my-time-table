@@ -19,9 +19,5 @@ export default function DeleteTask({ task, onDelete }: DeleteTaskProps) {
     }
   }
 
-  return (
-    <button onClick={handleDelete} className="delete-task-btn">
-      Delete Task
-    </button>
-  )
+  return <button onClick={handleDelete}>Delete Task</button>
 }

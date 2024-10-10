@@ -15,36 +15,21 @@ export default function UserPage() {
   if (isError) return <div>Error: {error?.message}</div>
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-6 text-3xl font-bold">Users</h1>
+    <div>
+      <h1>Users</h1>
 
-      <button
-        onClick={() => setIsAddingUser(true)}
-        className="bg-blue-500 hover:bg-blue-700 mb-4 rounded px-4 py-2 font-bold text-white"
-      >
-        Add User
-      </button>
+      <button onClick={() => setIsAddingUser(true)}>Add User</button>
 
       {isAddingUser && <AddUser onClose={() => setIsAddingUser(false)} />}
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div>
         {users?.map((user) => (
-          <div key={user.id} className="rounded-lg border p-4 shadow">
-            <h2 className="mb-2 text-xl font-semibold">{user.username}</h2>
-            <p className="mb-4 text-gray-600">{user.email}</p>
-            <div className="flex justify-between">
-              <button
-                onClick={() => setEditingUser(user)}
-                className="bg-yellow-500 hover:bg-yellow-600 rounded px-3 py-1 text-white"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => setDeletingUser(user)}
-                className="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600"
-              >
-                Delete
-              </button>
+          <div key={user.id}>
+            <h2>{user.username}</h2>
+            <p>{user.email}</p>
+            <div>
+              <button onClick={() => setEditingUser(user)}>Edit</button>
+              <button onClick={() => setDeletingUser(user)}>Delete</button>
             </div>
           </div>
         ))}
