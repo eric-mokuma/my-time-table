@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const ContactPage: React.FC = () => {
+export default function ContactPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
@@ -68,5 +68,3 @@ const ContactPage: React.FC = () => {
     </div>
   )
 }
-
-export default ContactPage

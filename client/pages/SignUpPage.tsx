@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SignUpPage: React.FC = () => {
+export default function SignUpPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -41,5 +41,3 @@ const SignUpPage: React.FC = () => {
     </div>
   )
 }
-
-export default SignUpPage

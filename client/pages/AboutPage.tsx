@@ -1,6 +1,4 @@
-import React from 'react'
-
-const AboutPage: React.FC = () => {
+export default function AboutPage() {
   return (
     <div className="about-page">
       <h1>About Our Company</h1>
@@ -41,5 +39,3 @@ const AboutPage: React.FC = () => {
     </div>
   )
 }
-
-export default AboutPage

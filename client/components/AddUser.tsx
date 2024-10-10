@@ -11,7 +11,7 @@ type FormState = Omit<User, 'id' | 'created_at'>
 
 export default function AddUser({ onClose }: Props) {
   const { getAccessTokenSilently } = useAuth0()
-  const { add: addUser } = useUsers()
+  const { addUser } = useUsers()
 
   const [form, setForm] = useState<FormState>({
     username: '',

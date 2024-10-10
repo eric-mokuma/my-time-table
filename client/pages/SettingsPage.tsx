@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SettingsPage: React.FC = () => {
+export default function SettingsPage() {
   const [email, setEmail] = useState('user@example.com')
   const [password, setPassword] = useState('')
   const [notifications, setNotifications] = useState(true)
@@ -70,5 +70,3 @@ const SettingsPage: React.FC = () => {
     </div>
   )
 }
-
-export default SettingsPage

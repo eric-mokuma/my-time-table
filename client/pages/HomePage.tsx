@@ -1,6 +1,4 @@
-import React from 'react'
-
-const HomePage: React.FC = () => {
+export default function HomePage() {
   return (
     <div>
       <h1>Welcome to your Time Management App</h1>
@@ -8,5 +6,3 @@ const HomePage: React.FC = () => {
     </div>
   )
 }
-
-export default HomePage

@@ -1,15 +1,18 @@
 import React from 'react'
 import { useLocation, Link } from 'react-router-dom'
 
-interface ErrorPageProps {
+export interface ErrorPageProps {
   code?: number
   message?: string
 }
 
-const ErrorPage: React.FC<ErrorPageProps> = ({
+export default function ErrorPage({
   code = 404,
   message = 'Page not found',
-}) => {
+}: {
+  code?: number
+  message?: string
+}): React.ReactElement {
   const location = useLocation()
 
   return (
@@ -25,5 +28,3 @@ const ErrorPage: React.FC<ErrorPageProps> = ({
     </div>
   )
 }
-
-export default ErrorPage
