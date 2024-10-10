@@ -7,9 +7,15 @@ export function up(knex) {
     table.increments('id').primary()
     table.string('task_name').notNullable()
     table.string('description')
-    table.string('duration')
+    table.integer('duration').notNullable()
     table.boolean('is_priority').defaultTo(false)
     table.boolean('is_completed').defaultTo(false)
+    table.integer('user_id').unsigned().references('id').inTable('users')
+    table
+      .integer('time_slot_id')
+      .unsigned()
+      .references('id')
+      .inTable('time_slots')
   })
 }
 

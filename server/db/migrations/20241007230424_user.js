@@ -7,7 +7,7 @@ export function up(knex) {
     table.increments('id').primary()
     table.string('username').notNullable()
     table.string('email').notNullable().unique()
-    table.string('created_at').defaultTo(knex.fn.now)
+    table.timestamp('created_at').defaultTo(knex.fn.now())
   })
 }
 
