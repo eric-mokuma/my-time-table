@@ -38,7 +38,12 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
       return res.status(400).json({ error: 'Invalid user ID' })
     }
 
-    const updatedUser: User = { id, username, email, created_at: new Date() }
+    const updatedUser: User = {
+      id,
+      username,
+      email,
+      created_at: new Date().toISOString(),
+    }
     await db.updateUserById(updatedUser, id)
     res.sendStatus(204)
   } catch (error) {
@@ -68,7 +73,12 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const { username, email } = req.body
-    const newUser: User = { id: 0, username, email, created_at: new Date() }
+    const newUser: User = {
+      id: 0,
+      username,
+      email,
+      created_at: new Date().toISOString(),
+    }
     const id = await db.addUser(newUser)
     res.status(201).json({ id })
   } catch (error) {
