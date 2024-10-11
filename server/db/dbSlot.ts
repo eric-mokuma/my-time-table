@@ -29,11 +29,10 @@ export async function getTimeSlotById(
 // Function to add a new time slot to the database
 export async function addTimeSlot(newTimeSlot: TimeSlot): Promise<number> {
   const result = await db('time_slots').insert({
-    startTime: newTimeSlot.start_time,
-    endTime: newTimeSlot.end_time,
-    userId: newTimeSlot.id,
+    start_time: newTimeSlot.start_time,
+    end_time: newTimeSlot.end_time,
   })
-  return result[0] // Assuming id is auto-generated
+  return result[0]
 }
 
 // Function to delete a time slot by ID

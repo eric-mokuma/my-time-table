@@ -5,7 +5,7 @@ import { Task } from '../../models/modelTask'
 export async function getTasks(): Promise<Task[]> {
   return db('tasks').select(
     'id',
-    'TaskName',
+    'task_name',
     'description',
     'duration',
     'is_priority',
@@ -15,17 +15,17 @@ export async function getTasks(): Promise<Task[]> {
 
 // Function to update a task by ID
 export async function updateTaskById(updatedTask: Partial<Task>, id: number) {
-  const result = await db('tasks').where({ TaskId: id }).update(updatedTask)
+  const result = await db('tasks').where({ id }).update(updatedTask)
   return result
 }
 
 // Function to get a task by ID
 export async function getTaskById(id: number): Promise<Task | undefined> {
   const result = await db('tasks')
-    .where({ TaskId: id })
+    .where({ id })
     .select(
       'id',
-      'TaskName',
+      'task_name',
       'description',
       'duration',
       'is_priority',
