@@ -1,12 +1,12 @@
 import express from 'express'
 import * as db from '../db/dbTask'
 import { Task } from '../../models/modelTask'
-import checkJwt, { JwtRequest } from '../auth0'
+
 
 const router = express.Router()
 
 // GET /api/v1/tasks for getting all tasks
-router.get('/', checkJwt, async (req: JwtRequest, res) => {
+router.get('/', async (req, res) => {
   try {
     const tasks = await db.getTasks()
     res.json(tasks)
@@ -17,7 +17,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 })
 
 // PATCH /api/v1/tasks/:id for updating a task by id
-router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
+router.patch('/:id', async (req, res) => {
   try {
     const { TaskName, Description, Duration, IsPriority, IsCompleted } =
       req.body
@@ -44,7 +44,7 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res) => {
 })
 
 // DELETE /api/v1/tasks/:id for deleting a task by id
-router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
 
@@ -61,7 +61,7 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
 })
 
 // POST /api/v1/tasks to add a new task
-router.post('/', checkJwt, async (req: JwtRequest, res) => {
+router.post('/', async (req, res) => {
   try {
     const { TaskName, Description, Duration, IsPriority, IsCompleted } =
       req.body

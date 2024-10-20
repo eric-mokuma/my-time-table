@@ -3,18 +3,16 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useTask } from '../hooks/useTask'
 import { Task } from '../../models/modelTask'
 
-export default function EditTask() {
+interface EditTaskProps {
+  task: Task; // Ensure task prop is defined
+  onClose: () => void;
+}
+
+const EditTask: React.FC<EditTaskProps> = ({ task, onClose }) => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { tasks, loading, error, editTask } = useTask()
-  const [formData, setFormData] = useState<Task>({
-    id: 0,
-    task_name: '',
-    description: '',
-    duration: '',
-    is_priority: false,
-    is_completed: false,
-  })
+  const [formData, setFormData] = useState<Task>(task) // Use task prop for initial state
 
   useEffect(() => {
     const task = tasks.find((t) => t.id === Number(id))
@@ -37,6 +35,7 @@ export default function EditTask() {
     e.preventDefault()
     if (formData) {
       await editTask(formData)
+      onClose() // Call onClose after editing the task
       navigate('/tasks')
     }
   }
@@ -74,3 +73,5 @@ export default function EditTask() {
     </div>
   )
 }
+
+export default EditTask

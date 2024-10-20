@@ -1,17 +1,16 @@
 import express from 'express'
 import * as Path from 'node:path'
-import usersRoutes from './routes/routerUsers'
 import tasksRoutes from './routes/routerTask'
-import timeSlotsRoutes from './routes/routerTimeSlot'
+
 
 const server = express()
 
 server.use(express.json())
 
 // Set up routes
-server.use('/api/v1/users', usersRoutes)
+
 server.use('/api/v1/tasks', tasksRoutes)
-server.use('/api/v1/timeslots', timeSlotsRoutes)
+
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
